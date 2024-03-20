@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modip_movies/constant.dart';
+import 'package:modip_movies/screens/auth/login_register.dart';
 import 'package:modip_movies/screens/image_widget.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -102,9 +103,15 @@ class _WelcomScreenState extends State<WelcomeScreen> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginOrRegister(),
+                          ));
+                    },
                     child: const Text(
-                      "Sign In ",
+                      "Sign In",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
