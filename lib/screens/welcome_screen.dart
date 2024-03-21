@@ -39,11 +39,11 @@ class _WelcomScreenState extends State<WelcomeScreen> {
             ],
           ),
         ),
-        const Positioned(
-          top: 390,
+        Positioned(
+          top: height * .52,
           left: 110,
           right: 100,
-          child: Text(
+          child: const Text(
             "mMovies ",
             style: TextStyle(color: Colors.white, fontSize: 28),
           ),
@@ -105,10 +105,11 @@ class _WelcomScreenState extends State<WelcomeScreen> {
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginOrRegister(),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginOrRegister(),
+                        ),
+                      );
                     },
                     child: const Text(
                       "Sign In",
@@ -117,25 +118,32 @@ class _WelcomScreenState extends State<WelcomeScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 4,
+                  height: 2,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Don't have an account?",
+                    const Text(
+                      "Don't have an account ?",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      "Sign up",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginOrRegister(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Sign up",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
                   ],
                 ),
               ],

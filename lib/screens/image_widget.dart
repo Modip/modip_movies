@@ -6,7 +6,7 @@ import 'package:modip_movies/data.dart';
 
 class ImageWidget extends StatefulWidget {
   final int starIndex;
-  const ImageWidget({Key? key, required this.starIndex}) : super(key: key);
+  const ImageWidget({super.key, required this.starIndex});
 
   @override
   State<ImageWidget> createState() => _ImageWidgetState();
@@ -23,7 +23,7 @@ class _ImageWidgetState extends State<ImageWidget> {
         _autoScroll();
       }
 
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _autoScroll();
       });
     });

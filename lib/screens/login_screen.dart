@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modip_movies/constant.dart';
 import 'package:modip_movies/screens/components/custom_button.dart';
 import 'package:modip_movies/screens/components/my_textfield.dart';
-import 'package:modip_movies/screens/test_widget.dart';
+import 'package:modip_movies/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   final void Function()? ontap;
@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const TestWidget(),
+        builder: (context) => const HomeScreen(),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:modip_movies/constant.dart';
 
 class MyTextfield extends StatelessWidget {
