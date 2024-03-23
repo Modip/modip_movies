@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:modip_movies/constant.dart';
 import 'package:modip_movies/data.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -12,7 +13,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late PageController pageController;
   int activeIndex = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pageController = PageController(initialPage: activeIndex);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pageController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -177,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 8,
               ),
               SizedBox(
-                height: height * .15,
+                height: height * .16,
                 child: ListView.builder(
                   itemCount: films.length,
                   scrollDirection: Axis.horizontal,
@@ -200,6 +216,37 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         )
       ]),
+      bottomNavigationBar: Container(
+        height: 60,
+        color: Colors.transparent,
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+          child: GNav(
+              gap: 8,
+              padding: EdgeInsets.all(12),
+              color: Colors.grey,
+              activeColor: Colors.white,
+              tabBackgroundColor: kPrimaryColor,
+              tabs: [
+                GButton(
+                  icon: Icons.home_outlined,
+                  text: "Home",
+                ),
+                GButton(
+                  icon: Icons.book_outlined,
+                  text: "Book",
+                ),
+                GButton(
+                  icon: Icons.search_outlined,
+                  text: "Search",
+                ),
+                GButton(
+                  icon: Icons.person_2_outlined,
+                  text: "Profile",
+                ),
+              ]),
+        ),
+      ),
     );
   }
 
