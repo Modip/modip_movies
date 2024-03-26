@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:modip_movies/constant.dart';
 import 'package:modip_movies/data.dart';
+import 'package:modip_movies/screens/components/film_item.dart';
+import 'package:modip_movies/screens/components/house_prod_item.dart';
+import 'package:modip_movies/screens/components/serie_item.dart';
+import 'package:modip_movies/screens/components/sketch_item.dart';
 import 'package:modip_movies/screens/search_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -19,14 +23,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   int currentcategorie = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     pageController = PageController(initialPage: activeIndex);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     pageController.dispose();
   }
@@ -52,28 +54,89 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: Column(
                 children: [
                   Container(
-                    height: height * .48,
+                    height: height * .68,
                     decoration: const BoxDecoration(color: Colors.white),
                     child: Stack(
                       children: [
                         Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: CarouselSlider.builder(
-                                itemCount: films.length,
-                                options: CarouselOptions(
-                                  height: height * .5,
-                                  viewportFraction: 1,
-                                  autoPlay: true,
-                                  autoPlayInterval: const Duration(seconds: 3),
-                                  onPageChanged: (index, reason) =>
-                                      setState(() => activeIndex = index),
-                                ),
-                                itemBuilder: (context, index, realIndex) {
-                                  final film = films[index].image.toString();
-                                  return buildImage(film, index);
-                                })),
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: height * .7,
+                            color: Colors.black,
+                            child: TabBarView(
+                              controller: tabcontroller,
+                              children: [
+                                Column(children: [
+                                  CarouselSlider.builder(
+                                    itemCount: films.length,
+                                    options: CarouselOptions(
+                                      height: height * .5,
+                                      viewportFraction: 1,
+                                      autoPlay: true,
+                                      autoPlayInterval:
+                                          const Duration(seconds: 3),
+                                      onPageChanged: (index, reason) =>
+                                          setState(() => activeIndex = index),
+                                    ),
+                                    itemBuilder: (context, index, realIndex) {
+                                      final film =
+                                          films[index].image.toString();
+                                      return buildImage(film, index);
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    height: 40,
+                                    width: width * .35,
+                                    decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        "Watch now",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  const Column(children: [
+                                    Text(
+                                      "NOW STREAMING",
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Exclusively on mMovies ",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18),
+                                    ),
+                                  ]),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                    child: buildIndicator(),
+                                  ),
+                                ]),
+                                const SerieItem(),
+                                const FilmItem(),
+                                const Sketchtem(),
+                                const HouseProdItem(),
+                              ],
+                            ),
+                          ),
+                        ),
                         Positioned(
                           top: 20,
                           left: 10,
@@ -90,8 +153,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 height: 50,
                                 width: 50,
                                 decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(20)),
+                                  color: kPrimaryColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: const DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/profile.png"),
+                                      fit: BoxFit.cover),
+                                ),
                               ),
                             ],
                           ),
@@ -121,14 +189,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     ),
                                     tabs: [
                                       Tab(
-                                        child: Container(
+                                        child: SizedBox(
                                           width: width * 0.15,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: kPrimaryColor),
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                          ),
                                           child: Center(
                                             child: Text(
                                               "All",
@@ -199,88 +261,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                SizedBox(
-                                  height: height * .4,
-                                  child: TabBarView(
-                                    controller: tabcontroller,
-                                    children: const [
-                                      Center(
-                                        child: Text(
-                                          "Places",
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          "Hotels",
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          "Monuments",
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          "Parcs",
-                                        ),
-                                      ),
-                                      Center(
-                                        child: Text(
-                                          "Parcs",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ],
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    width: width * .4,
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Watch now",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Column(children: [
-                    Text(
-                      "NOW STREAMING",
-                      style: TextStyle(color: Colors.grey, fontSize: 16),
-                    ),
-                    Text(
-                      "Exclusively on mMovies ",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ]),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    height: 8,
-                    child: buildIndicator(),
                   ),
                   const Row(
                     children: [
@@ -393,8 +379,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   text: "Search",
                 ),
                 GButton(
-                  icon: Icons.person_2_outlined,
-                  text: "Profile",
+                  icon: Icons.settings_outlined,
+                  text: "Settings",
                 ),
               ]),
         ),
@@ -403,14 +389,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
-      activeIndex: activeIndex,
-      count: films.length,
-      effect: const JumpingDotEffect(
-        dotWidth: 8,
-        dotHeight: 8,
-        dotColor: Colors.grey,
-        activeDotColor: kPrimaryColor,
-      ));
+        activeIndex: activeIndex,
+        count: films.length,
+        effect: const JumpingDotEffect(
+          dotWidth: 8,
+          dotHeight: 8,
+          dotColor: Colors.grey,
+          activeDotColor: kPrimaryColor,
+        ),
+      );
 }
 
 Widget buildImage(String film, int index) => Container(
